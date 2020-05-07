@@ -26,29 +26,22 @@ const App = () => {
     }
 
     const moveSnake = ({ keyCode }) => {
-        keyCode >= 37 && keyCode <= 40
-            && setDir(DIRECTIONS[keyCode])
+        keyCode >= 37 && keyCode <= 40 && setDir(DIRECTIONS[keyCode])
     }
 
     const createApple = () => {
-        apple.map((_, i) =>
-            Math.floor(Math.random() * (CANVAS_SIZE[i]) / SCALE)
-        )
+        apple.map((_a, i) => Math.floor(Math.random() * (CANVAS_SIZE[i] / SCALE)))
     }
 
     const checkCollision = (piece, snk = snake) => {
         if (
-            piece[0] * SCALE >= CANVAS_SIZE[0]
-            || piece[0] < 0
-            || piece[1] * SCALE >= CANVAS_SIZE[1]
-            || piece[1] < 0
+            piece[0] * SCALE >= CANVAS_SIZE[0] || piece[0] < 0 || piece[1] * SCALE >= CANVAS_SIZE[1] || piece[1] < 0
         ) {
             return true;
         }
         for (const segment of snk) {
             if (
-                piece[0] === segment[0]
-                && piece[1] === segment[1]
+                piece[0] === segment[0] && piece[1] === segment[1]
             ) {
                 return true;
             }
@@ -57,10 +50,7 @@ const App = () => {
     }
 
     const checkAppleCollision = newSnake => {
-        if (
-            newSnake[0][0] === apple[0]
-            && newSnake[0][1] === apple[1]
-        ) {
+        if ( newSnake[0][0] === apple[0] && newSnake[0][1] === apple[1] ) {
             let newApple = createApple();
             while (checkCollision(newApple, newSnake)) {
                 newApple = createApple();
@@ -69,7 +59,7 @@ const App = () => {
             return true;
         }
         return false;
-    }
+    };
 
     const gameLoop = () => {
         const snakeCopy = JSON.parse(JSON.stringify(snake));
