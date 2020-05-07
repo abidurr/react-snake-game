@@ -81,7 +81,9 @@ const App = () => {
         if (checkCollision(newSnakeHead)) {
             endGame();
         };
-        snakeCopy.pop();
+        if (!checkAppleCollision(snakeCopy)) {
+            snakeCopy.pop();
+        }
         setSnake(snakeCopy);
     }
 
