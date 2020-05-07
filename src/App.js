@@ -32,7 +32,16 @@ const App = () => {
 
     }
     const gameLoop = () => {
+        const snakeCopy = JSON.parse(JSON.stringify(snake));
+        const newSnakeHead = [
+            snakeCopy[0][0] + dir[0],
+            snakeCopy[0][1] + dir[1]
+        ];
+        snakeCopy.unshift(newSnakeHead);
+        snakeCopy.pop();
+        setSnake(snakeCopy);
     }
+
     useEffect(() => {
         const context = canvasRef.current.getContext("2d");
         // setting scale each time
