@@ -25,7 +25,7 @@ const App = () => {
     }
     const moveSnake = ({ keyCode }) => {
         keyCode >= 37 && keyCode <= 40
-        && setDir(DIRECTIONS[keyCode])
+            && setDir(DIRECTIONS[keyCode])
     }
     const createApple = () => {
 
@@ -34,7 +34,8 @@ const App = () => {
         if (
             piece[0] * SCALE >= CANVAS_SIZE[0]
             || piece[0] < 0
-            || piece[1] * CANVAS_SIZE[1]
+            || piece[1] * SCALE >= CANVAS_SIZE[1]
+            || piece[1] < 0
         )
     }
     const checkAppleCollision = () => {
