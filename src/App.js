@@ -7,16 +7,21 @@ const App = () => {
     // Initial states
     const canvasRef = useRef()
     const [snake, setSnake] = useState(SNAKE_START)
-    const [apple, serApple] = useState(APPLE_START)
+    const [apple, setApple] = useState(APPLE_START)
     const [dir, setDir] = useState([0, -1])
     const [speed, setSpeed] = useState(null)
     const [gameOver, setGameOver] = useState(false)
 
     const startGame = () => {
-
+        setSnake(SNAKE_START);
+        setApple(APPLE_START);
+        setDir([0, -1]);
+        setSpeed(SPEED);
+        setGameOver(false);
     }
     const endGame = () => {
-
+        setSpeed(null);
+        setGameOver(true);
     }
     const moveSnake = ({ keyCode }) => {
         keyCode >= 37 && keyCode <= 40
@@ -25,8 +30,12 @@ const App = () => {
     const createApple = () => {
 
     }
-    const checkCollision = () => {
-
+    const checkCollision = (piece, snk = snake) => {
+        if (
+            piece[0] * SCALE >= CANVAS_SIZE[0]
+            || piece[0] < 0
+            || piece[1] * CANVAS_SIZE[1]
+        )
     }
     const checkAppleCollision = () => {
 
@@ -51,8 +60,9 @@ const App = () => {
         snake.forEach(([x, y]) => context.fillRect(x, y, 1, 1));
         context.fillStyle = "red";
         context.fillRect(apple[0], apple[1], 1, 1);
-
     }, [snake, apple, gameOver])
+
+    useInterval(() => gameLoop(), speed)
 
     return (
         <div
