@@ -19,25 +19,41 @@ const App = () => {
         setSpeed(SPEED);
         setGameOver(false);
     }
+
     const endGame = () => {
         setSpeed(null);
         setGameOver(true);
     }
+
     const moveSnake = ({ keyCode }) => {
         keyCode >= 37 && keyCode <= 40
             && setDir(DIRECTIONS[keyCode])
     }
+
     const createApple = () => {
 
     }
+
     const checkCollision = (piece, snk = snake) => {
         if (
             piece[0] * SCALE >= CANVAS_SIZE[0]
             || piece[0] < 0
             || piece[1] * SCALE >= CANVAS_SIZE[1]
             || piece[1] < 0
-        )
+        ) {
+            return true;
+        }
+        for (const segment of snk) {
+            if (
+                piece[0] === segment[0]
+                && piece[1] === segment[1]
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
+
     const checkAppleCollision = () => {
 
     }
@@ -48,6 +64,9 @@ const App = () => {
             snakeCopy[0][1] + dir[1]
         ];
         snakeCopy.unshift(newSnakeHead);
+        if (checkCollision(newSnakeHead)) {
+            endGame();
+        };
         snakeCopy.pop();
         setSnake(snakeCopy);
     }
